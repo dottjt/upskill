@@ -13,7 +13,6 @@ const game = {
   },
 }
 
-
 // Create div that's 100px wide, 100px long
 
 const startGame = () => {
@@ -29,21 +28,17 @@ const startGame = () => {
         game.snakeCoord.x = 0
       }
     }
-    // if (game.snakeCoord.d === 'l') {
-    //   game.snakeCoord.x -= 1
-    // }
-    // if (game.snakeCoord.d === 't') {
-    //   game.snakeCoord.y += 1
-    // }
-    // if (game.snakeCoord.d === 'b') {
-    //   game.snakeCoord.y -= 1
-    // }
-
-    if (game.snakeCoord.d === 'r' || game.snakeCoord.d === 'l') {
-      snake.style.transform = `translateX(${40 * game.snakeCoord.x}px)`
-    } else {
-      snake.style.transform = `translateY(${40 * game.snakeCoord.y}px)`
+    if (game.snakeCoord.d === 'l') {
+      game.snakeCoord.x -= 1
     }
+    if (game.snakeCoord.d === 't') {
+      game.snakeCoord.y += 1
+    }
+    if (game.snakeCoord.d === 'b') {
+      game.snakeCoord.y -= 1
+    }
+
+    snake.style.transform = `translate(${40 * game.snakeCoord.x}px, ${40 * game.snakeCoord.y}px)`
     // snake.classList.add()
     // translate-x-[${40 * game.snakeCoord.x}px] translate-y-[${40 * game.snakeCoord.y}px]
 

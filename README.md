@@ -5,3 +5,6 @@
 
 pnpm create vite
 pnpm create astro
+
+
+add husky
