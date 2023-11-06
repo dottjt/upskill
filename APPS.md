@@ -7,3 +7,8 @@ Create-React-App
 Next.js
 Vite
 
+
+## Apps
+
+- tic-tac-toe-2-player-js
+- snake-js
