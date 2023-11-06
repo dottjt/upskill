@@ -1,68 +1,84 @@
 import './style.css'
 
+// TODO game gets faster as it goes along.
+// TODO snake grows in length
+
+// NOTE: What's important is the starting position co-ordinate
+
 const app = document.querySelector('#app')
-const snake = document.querySelector('#snake')
+
+// NOTE: Maybe I need to have snakeCoord as an array, which is then continually updated with different co-ordinates
 
 const game = {
+  posList: [{x: 0, y: 0}], // First element is
+  x: 0, // 0 - 9
+  y: 0, // 0 - 9
+  d: 'r', // 'l', 'r', 't', 'b'
+  xBoundary: 9,
+  yBoundary: 9,
   snakeCoord: {
-    x: 0, // 0 - 9
-    y: 0, // 0 - 9
-    d: 'r', // 'l', 'r', 't', 'b'
-    xBoundary: 9,
-    yBoundary: 9,
+    snakeTailLength: 1,
   },
 }
 
-// Create div that's 100px wide, 100px long
+
 
 const startGame = () => {
-  game.snakeCoord.x = 0
-  game.snakeCoord.y = 0
-  game.snakeCoord.d = 'r'
+  game.x = 0
+  game.y = 0
+  game.d = 'r'
 
   setInterval(function() {
-    if (game.snakeCoord.d === 'r') {
-      game.snakeCoord.x += 1
-
-      if (game.snakeCoord.x > game.snakeCoord.xBoundary) {
-        game.snakeCoord.x = 0
+    // Snake head movement
+    if (game.d === 'r') {
+      game.posList[0].x += 1
+      if (game.posList[0].x > game.xBoundary) {
+        game.posList[0].x = 0
       }
     }
-    if (game.snakeCoord.d === 'l') {
-      game.snakeCoord.x -= 1
+    if (game.d === 'l') {
+      game.posList[0].x -= 1
+      if (game.posList[0].x < 0) {
+        game.posList[0].x = 9
+      }
     }
-    if (game.snakeCoord.d === 't') {
-      game.snakeCoord.y += 1
+    if (game.d === 't') {
+      game.posList[0].y += 1
+      if (game.posList[0].y > game.yBoundary) {
+        game.posList[0].y = 0
+      }
     }
-    if (game.snakeCoord.d === 'b') {
-      game.snakeCoord.y -= 1
+    if (game.d === 'b') {
+      game.posList[0].y -= 1
+      if (game.posList[0].y < 0) {
+        game.posList[0].y = 9
+      }
     }
 
-    snake.style.transform = `translate(${40 * game.snakeCoord.x}px, ${40 * game.snakeCoord.y}px)`
-    // snake.classList.add()
-    // translate-x-[${40 * game.snakeCoord.x}px] translate-y-[${40 * game.snakeCoord.y}px]
+    const snake = document.createElement('div')
+    snake.classList.add('absolute', 'bottom-0', 'left-0', 'h-[40px]', 'w-[40px]', 'bg-green-500', 'rounded-xs', 'border')
+    snake.style.transform = `translate(${40 * game.posList[0].x}px, -${40 * game.posList[0].y}px)`
 
-    console.log(game.snakeCoord)
+    app.innerHTML = ''
+    app.appendChild(snake)
+
+    console.log(game)
   }, 1000);
 }
 
 document.onkeydown = function(event) {
   switch (event.keyCode) {
     case 37: // l
-      game.snakeCoord.d = 'l'
-        // alert('Left key');
+      game.d = 'l'
     break;
     case 38: // t
-      game.snakeCoord.d = 't'
-        // alert('Up key');
+      game.d = 't'
     break;
     case 39: // r
-      game.snakeCoord.d = 'r'
-        // alert('Right key');
+      game.d = 'r'
     break;
     case 40: // b
-      game.snakeCoord.d = 'b'
-        // alert('Down key');
+      game.d = 'b'
     break;
   }
 };
